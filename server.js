@@ -15,6 +15,14 @@ const dataNotes = JSON.parse(
     })
 );
 
+const updateNotes = dataNotes => {
+    fs.writeFileSync(path.join(__dirname, './db/db.json'), JSON.stringify(dataNotes), 
+    err => {
+        if(err)
+            console.log(err);
+    })
+};
+
 app.use(express.urlencoded({extended: true}))
 app.use(express.json());
 
@@ -35,7 +43,12 @@ app.get('/index', (req, res) =>
 );
 
 app.post('/api/notes', (req, res) => {
-
+    let newNote = req.body;
+    let addId = dataNotes.length;
+    newNote.addId = addId + 1;
+    dataNotes.push(newNote);
+    updateNotes(dataNotes);
+    return res.json(dataNotes);
 });
 
 app.listen(PORT, () => {
