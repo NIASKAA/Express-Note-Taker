@@ -24,7 +24,7 @@ app.get('/api/notes', (req, res) => {
     });
 });
 
-app.post('/api/note', (req, res) => {
+app.post('/api/notes', (req, res) => {
     fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
         if(err) throw err;
         const note = JSON.parse(data);
@@ -51,7 +51,7 @@ app.post('/api/note', (req, res) => {
     });
 });
 
-app.delete('/api/note/:id', (req, res) => {
+app.delete('/api/notes/:id', (req, res) => {
     const id = parseInt(req.body.id);
     fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
         if(err) throw err;
