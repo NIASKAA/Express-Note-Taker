@@ -52,14 +52,14 @@ app.post('/api/notes', (req, res) => {
 });
 
 app.delete('/api/notes/:id', (req, res) => {
-    const id = parseInt(req.body.id);
+    const id = parseInt(req.params.id);
     fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
         if(err) throw err;
         const note = JSON.parse(data);
         const currentNote = [];
 
         for(let i = 0; i < note.length; i++){
-            if(i != id){
+            if(i !== id){
 
                 const deleteNote = {
                     title: note[i].title,
