@@ -35,12 +35,12 @@ app.post('/api/notes', (req, res) => {
         // UpdateNote function will basically add 1 to the id slot so new notes can all have different id for delete access
         for(let i = 0; i < note.length; i++){
 
-            const updateNote = {
+            const newNote = {
                 title: note[i].title,
                 text: note[i].text,
                 id: i
             }
-            newNote.push(updateNote);
+            newNote.push(newNote);
         }
 
         // Now we append the data from newNote to the db.json
@@ -61,12 +61,12 @@ app.delete('/api/notes/:id', (req, res) => {
         for(let i = 0; i < note.length; i++){
             if(i !== id){
 
-                const deleteNote = {
+                const newNote = {
                     title: note[i].title,
                     text: note[i].text,
                     id: currentNote.id
                 };
-                currentNote.push(deleteNote);
+                currentNote.push(newNote);
             }
         }
         fs.writeFile(path.join(__dirname, "/db/db.json"), JSON.stringify(currentNote, null, 2), (err) => {
