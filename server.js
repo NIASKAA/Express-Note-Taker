@@ -51,6 +51,13 @@ app.post('/api/notes', (req, res) => {
     return res.json(dataNotes);
 });
 
+app.delete('./api/notes/:id', (req, res) => {
+    let id = req.body.id;
+    delete dataNotes[id - 1];
+    updateNotes(dataNotes);
+    res.send(dataNotes);
+});
+
 app.listen(PORT, () => {
     console.log("App listening on PORT " + PORT);
-})
+});
