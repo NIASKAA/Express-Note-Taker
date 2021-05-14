@@ -18,14 +18,14 @@ app.get('/notes', (req, res) =>
 );
 
 app.get('/api/notes', (req, res) => {
-    fs.readFile(path.join(__dirname, './db/db.json'), 'utf8', (err, data) => {
+    fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
         if(err) throw err;
         res.json(JSON.parse(data));
     });
 });
 
 app.post('/api/note', (req, res) => {
-    fs.readFile(path.join(__dirname, './db/db.json'), 'utf8', (err, data) => {
+    fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
         if(err) throw err;
         const note = JSON.parse(data);
         const newNote = [];
@@ -44,7 +44,7 @@ app.post('/api/note', (req, res) => {
         }
 
         // Now we append the data from newNote to the db.json
-        fs.writeFile(path.join(__dirname, './db/db.json'), JSON.stringify(newNote, null, 2), (err) => {
+        fs.writeFile(path.join(__dirname, '/db/db.json'), JSON.stringify(newNote, null, 2), (err) => {
             if(err) throw err;
             res.json(req.body);
         });
@@ -53,7 +53,7 @@ app.post('/api/note', (req, res) => {
 
 app.delete('/api/note/:id', (req, res) => {
     const id = parseInt(req.body.id);
-    fs.readFile(path.join(__dirname, './db/db.json'), 'utf8', (err, data) => {
+    fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
         if(err) throw err;
         const note = JSON.parse(data);
         const currentNote = [];
@@ -69,7 +69,7 @@ app.delete('/api/note/:id', (req, res) => {
                 currentNote.push(deleteNote);
             }
         }
-        fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(currentNote, null, 2), (err) => {
+        fs.writeFile(path.join(__dirname, "/db/db.json"), JSON.stringify(currentNote, null, 2), (err) => {
             if(err) throw err;
             res.json(req.body);
         });
