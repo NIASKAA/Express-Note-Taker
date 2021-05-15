@@ -15,7 +15,7 @@ Node.js, Javascript, FS, Express.js, BootStrap
 
 # Links to application
 Link to repo: https://github.com/NIASKAA/Express-Note-Taker \
-Link to Youtube quick walk-through: 
+Link to Youtube quick walk-through: https://youtu.be/6AcWnEqSrjE \
 Link to Heroku: https://niaskaexpressnotetaker.herokuapp.com/
 
 # Contribution 
