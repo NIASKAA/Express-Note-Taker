@@ -25,34 +25,34 @@ app.get("/api/notes", (req, res) => {
 // After pushing it, it will write to the db.json file as a new note
 app.post("/api/notes", (req, res) => {
     let newNote = req.body;
-    let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    let notelength = (noteList.length).toString();
+    let updateNote = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let noteList = (updateNote.length).toString();
 
     //create new property called id based on length and assign it to each json object
-    newNote.id = notelength;
+    newNote.id = noteList;
     //push updated note to the data containing notes history in db.json
-    noteList.push(newNote);
+    updateNote.push(newNote);
 
     //write the updated data to db.json
-    fs.writeFileSync("./db/db.json", JSON.stringify(noteList));
-    res.json(noteList);
-})
+    fs.writeFileSync("./db/db.json", JSON.stringify(updateNote));
+    res.json(updateNote);
+});
 
 // App.delete function basically checks for the id and uses filter to filter out that id and return the new array list to delete notes
 // After that it does the same thing as app.post and write out only the current notes left
 app.delete("/api/notes/:id", (req, res) => {
-    let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    let noteId = (req.params.id).toString();
+    let currentNote = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let delNote = (req.params.id).toString();
 
     //filter all notes that does not have matching id and saved them as a new array
     //the matching array will be deleted
-    noteList = noteList.filter(selected =>{
-        return selected.id != noteId;
+    currentNote = currentNote.filter(selected =>{
+        return selected.id != delNote;
     })
 
     //write the updated data to db.json and display the updated note
-    fs.writeFileSync("./db/db.json", JSON.stringify(noteList));
-    res.json(noteList);
+    fs.writeFileSync("./db/db.json", JSON.stringify(currentNote));
+    res.json(currentNote);
 });
 
 app.listen(PORT, () => {
