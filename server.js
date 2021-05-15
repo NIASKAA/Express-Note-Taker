@@ -51,7 +51,7 @@ app.post('/api/notes', (req, res) => {
     });
 });
 
-app.delete('/api/notes/:id', (req, res) => {
+/*app.delete('/api/notes/:id', (req, res) => {
     const id = parseInt(req.params.id);
     fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
         if(err) throw err;
@@ -74,6 +74,28 @@ app.delete('/api/notes/:id', (req, res) => {
             res.json(req.body);
         });
     });
+});*/
+
+app.post("api/notes", (req, res) => {
+    let note = req.body;
+    let updateNote = JSON.parse(fs.readFileSync('/db/db.json', 'utf8'));
+    let noteArray = (note.length).toString();
+
+    note.id = noteArray;
+    updateNote.push(note);
+    fs.writeFileSync('/db/db.json', JSON.stringify(noteArray));
+    res.json(updateNote);
+});
+
+app.delete("api/notes/:id", (req, res) => {
+    let note = JSON.parse(fs.readFileSync('/db/db.json', 'utf8'));
+    let delNote = (req.params.id).toString();
+    note = note.filter(selected => {
+        return selected.id != delNote;
+    })
+
+    fs.writeFileSync('/db/db.json', JSON.stringify(note));
+    res.json(note);
 });
 
 app.listen(PORT, () => {
