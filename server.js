@@ -82,25 +82,25 @@ app.get("/api/notes", (req, res) => {
 
 app.post("/api/notes", (req, res) => {
     let newNote = req.body;
-    let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    let notelength = (noteList.length).toString();
+    let updateNote = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let noteList = (noteList.length).toString();
 
-    newNote.id = notelength;
-    noteList.push(newNote);
-    fs.writeFileSync("./db/db.json", JSON.stringify(noteList));
-    res.json(noteList);
+    newNote.id = noteList;
+    note.push(updateNote);
+    fs.writeFileSync("./db/db.json", JSON.stringify(newNote));
+    res.json(newNote);
 
 })
 
 app.delete("/api/notes/:id", (req, res) => {
-    let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
-    let noteId = (req.params.id).toString();
-    noteList = noteList.filter(selected =>{
-        return selected.id != noteId;
+    let currentNote = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let deleteId = (req.params.id).toString();
+    currentNote = currentNote.filter(selected =>{
+        return selected.id != deleteId;
     })
 
-    fs.writeFileSync("./db/db.json", JSON.stringify(noteList));
-    res.json(noteList);
+    fs.writeFileSync("./db/db.json", JSON.stringify(currentNote));
+    res.json(currentNote);
 });
 
 app.listen(PORT, () => {
