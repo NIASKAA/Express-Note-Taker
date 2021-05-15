@@ -17,14 +17,17 @@ app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
 
-app.get('/api/notes', (req, res) => {
+app.get("/api/notes", (req, res) => {
+    res.sendFile(path.join(__dirname, "/db/db.json"));
+});
+/*app.get('/api/notes', (req, res) => {
     fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
         if(err) throw err;
         res.json(JSON.parse(data));
     });
-});
+});*/
 
-app.post('/api/notes', (req, res) => {
+/*app.post('/api/notes', (req, res) => {
     fs.readFile(path.join(__dirname, '/db/db.json'), 'utf8', (err, data) => {
         if(err) throw err;
         const note = JSON.parse(data);
@@ -49,7 +52,7 @@ app.post('/api/notes', (req, res) => {
             res.json(req.body);
         });
     });
-});
+});*/
 
 /*app.delete('/api/notes/:id', (req, res) => {
     const id = parseInt(req.params.id);
@@ -78,7 +81,7 @@ app.post('/api/notes', (req, res) => {
 
 app.post("api/notes", (req, res) => {
     let note = req.body;
-    let updateNote = JSON.parse(fs.readFileSync('/db/db.json', 'utf8'));
+    let updateNote = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
     let noteArray = (note.length).toString();
 
     note.id = noteArray;
@@ -88,7 +91,7 @@ app.post("api/notes", (req, res) => {
 });
 
 app.delete("api/notes/:id", (req, res) => {
-    let note = JSON.parse(fs.readFileSync('/db/db.json', 'utf8'));
+    let note = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
     let delNote = (req.params.id).toString();
     note = note.filter(selected => {
         return selected.id != delNote;
