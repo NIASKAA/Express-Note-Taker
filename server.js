@@ -80,26 +80,27 @@ app.get("/api/notes", (req, res) => {
     });
 });*/
 
-app.post("api/notes", (req, res) => {
-    let note = req.body;
-    let updateNote = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
-    let noteArray = (note.length).toString();
+app.post("/api/notes", (req, res) => {
+    let newNote = req.body;
+    let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let notelength = (noteList.length).toString();
 
-    note.id = noteArray;
-    updateNote.push(note);
-    fs.writeFileSync('/db/db.json', JSON.stringify(noteArray));
-    res.json(updateNote);
-});
+    newNote.id = notelength;
+    noteList.push(newNote);
+    fs.writeFileSync("./db/db.json", JSON.stringify(noteList));
+    res.json(noteList);
 
-app.delete("api/notes/:id", (req, res) => {
-    let note = JSON.parse(fs.readFileSync('./db/db.json', 'utf8'));
-    let delNote = (req.params.id).toString();
-    note = note.filter(selected => {
-        return selected.id != delNote;
+})
+
+app.delete("/api/notes/:id", (req, res) => {
+    let noteList = JSON.parse(fs.readFileSync("./db/db.json", "utf8"));
+    let noteId = (req.params.id).toString();
+    noteList = noteList.filter(selected =>{
+        return selected.id != noteId;
     })
 
-    fs.writeFileSync('/db/db.json', JSON.stringify(note));
-    res.json(note);
+    fs.writeFileSync("./db/db.json", JSON.stringify(noteList));
+    res.json(noteList);
 });
 
 app.listen(PORT, () => {
